@@ -40,9 +40,9 @@ pipeline {
 
         stage("Login and Push") {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'Dockeruser', usernameVariable: 'dockeruser', passwordVariable: 'dockerpass')]) {
+                withCredentials([usernamePassword(credentialsId: 'Dockeruser', passwordVariable: 'docker_pass', usernameVariable: 'docker_user')]) {
 
-                    bat "echo %dockerpass% | docker login -u %dockeruser% --password-stdin"
+                    bat "echo %docker_pass% | docker login -u %docker_user% --password-stdin"
                     bat "docker push ${docker_image}:${version_name}"
                 }
             }
